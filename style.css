@@ -33,7 +33,7 @@ header h1 {
     margin-bottom: 15px;
 }
 
-/* ✅ Centering and Responsive Grid */
+
 .game-board {
     display: grid;
     gap: 10px;
@@ -43,7 +43,7 @@ header h1 {
 }
 
 
-/* Cards */
+
 .card {
     width: 80px;
     height: 80px;
@@ -79,7 +79,6 @@ header h1 {
     line-height: 80px;
 }
 
-/* Win Message */
 .win-message {
     display: none;
     position: fixed;
