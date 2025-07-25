@@ -5,23 +5,23 @@ const nextLevelBtn = document.getElementById('nextLevelBtn');
 const levelDisplay = document.getElementById('level');
 const winLevelDisplay = document.getElementById('winLevel');
 
-// ✅ Sounds
+
 const bgMusic = new Audio("sounds/bg-music.mp3");
 const clickSound = new Audio("sounds/click.mp3");
 const matchSound = new Audio("sounds/match.mp3");
 bgMusic.loop = true;
 bgMusic.volume = 0.2;
 
-// ✅ Different levels with grid sizes & icons
+
 const levelConfigs = [
-    { grid: 4, pairs: 8 },  // Level 1 (4x4)
-    { grid: 4, pairs: 10 }, // Level 2 (4x5)
-    { grid: 5, pairs: 12 }, // Level 3 (5x5)
-    { grid: 6, pairs: 15 }, // Level 4 (6x5)
-    { grid: 6, pairs: 18 }  // Level 5 (6x6)
+    { grid: 4, pairs: 8 },  
+    { grid: 4, pairs: 10 }, 
+    { grid: 5, pairs: 12 }, 
+    { grid: 6, pairs: 15 }, 
+    { grid: 6, pairs: 18 } 
 ];
 
-// Some random emojis to use
+
 const allIcons = ["🍎","🍌","🍓","🍇","🍍","🥝","🍑","🍒","🥥","🥕","🌽","🍉","🍔","🍕","🥨","🍩","🍪","🍫"];
 
 let flippedCard = false;
@@ -37,7 +37,7 @@ function startGame(level = 1) {
     board.innerHTML = "";
     matchedCount = 0;
 
-    // Get level config
+  
     const config = levelConfigs[level - 1];
     const gridSize = config.grid;
     const pairs = config.pairs;
@@ -45,13 +45,12 @@ function startGame(level = 1) {
     let chosenIcons = allIcons.slice(0, pairs);
     let cardsArray = [...chosenIcons, ...chosenIcons];
 
-    // Shuffle cards
+    
     cardsArray.sort(() => 0.5 - Math.random());
 
     board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
 
 
-    // Create cards
     cardsArray.forEach(icon => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -71,7 +70,7 @@ function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
 
-    clickSound.play(); // ✅ Play on every click
+    clickSound.play(); 
     this.classList.add('flip');
 
     if (!flippedCard) {
@@ -90,7 +89,7 @@ function checkForMatch() {
 }
 
 function disableCards() {
-    matchSound.play(); // ✅ Play excited sound when matched
+    matchSound.play(); 
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
@@ -122,11 +121,11 @@ function showWinMessage() {
     winLevelDisplay.textContent = currentLevel;
     winMessage.style.display = "block";
 
-    // Hide next level if on level 5
+    
     nextLevelBtn.style.display = currentLevel === 5 ? "none" : "inline-block";
 }
 
-// ✅ Buttons
+
 restartBtn.addEventListener('click', () => startGame(currentLevel));
 nextLevelBtn.addEventListener('click', () => {
     if (currentLevel < 5) {
@@ -134,10 +133,9 @@ nextLevelBtn.addEventListener('click', () => {
     }
 });
 
-// ✅ Start background music on first click (autoplay fix)
+
 document.addEventListener("click", () => {
     bgMusic.play().catch(() => {});
 }, { once: true });
 
-// Start the first level
 startGame(1);
